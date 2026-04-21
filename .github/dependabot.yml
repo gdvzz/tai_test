@@ -1,7 +1,8 @@
 version: 2
 updates:
   - package-ecosystem: bundler
-    directory: /
+    # directory: /
+    directory: "/docs"  # by George 260421
     schedule:
       interval: daily
     allow:
