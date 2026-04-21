@@ -13,3 +13,5 @@ nav_exclude: true
 存放信息。
 
 网站文件移动到 /docs 目录下。
+
+基本可用。
