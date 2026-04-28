@@ -28,18 +28,8 @@ jobs:
       
       # 新增：安装并运行 Pagefind 生成中文搜索索引
       - name: Install Pagefind
-        run: |
-          # 获取 Pagefind 最新版本号
-          LATEST_VERSION=$(curl -sSL https://api.github.com/repos/CloudCannon/pagefind/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-          # 下载对应版本的 Linux 压缩包
-          curl -sSL "https://github.com/CloudCannon/pagefind/releases/download/${LATEST_VERSION}/pagefind-linux-x86_64.tar.gz" -o /tmp/pagefind.tar.gz
-          # 解压到 /tmp
-          tar -xzf /tmp/pagefind.tar.gz -C /tmp
-          # 移动到系统可执行目录
-          sudo mv /tmp/pagefind /usr/local/bin/
-          # 验证安装
-          pagefind --version
+        run: npm install -g pagefind
       
-      - name: Run Pagefind (CI validation)
-        run: pagefind --source _site --bundle-dir pagefind --glob "**/*.html"
+      - name: Run Pagefind
+        run: pagefind --source _site --bundle-dir pagefind
         working-directory: docs  # 对应 Jekyll 构建输出目录 docs/_site
