@@ -4,7 +4,7 @@
 # documentation.
 
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll site tai_test to Pages
+name: Deploy Jekyll site jdsh to Pages
 
 on:
   push:
@@ -50,6 +50,16 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+      
+      # 新增：安装并运行 Pagefind 生成中文搜索索引
+      - name: Install Pagefind
+        run: |
+          curl -sSL https://pagefind.app/releases/latest/pagefind-linux-x86_64.tar.gz | tar -xz -C /tmp
+          sudo mv /tmp/pagefind /usr/local/bin/
+      - name: Run Pagefind
+        run: pagefind --source _site --bundle-dir pagefind --glob "**/*.html"
+        working-directory: docs  # 对应 Jekyll 构建输出目录 docs/_site
+
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v5

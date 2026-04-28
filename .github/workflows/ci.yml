@@ -25,3 +25,12 @@ jobs:
           working-directory: docs   # by George 260421
       - name: Build with Jekyll
         run: bundle exec jekyll build
+      
+      # 新增：安装并运行 Pagefind 生成中文搜索索引
+      - name: Install Pagefind
+        run: |
+          curl -sSL https://pagefind.app/releases/latest/pagefind-linux-x86_64.tar.gz | tar -xz -C /tmp
+          sudo mv /tmp/pagefind /usr/local/bin/
+      - name: Run Pagefind
+        run: pagefind --source _site --bundle-dir pagefind --glob "**/*.html"
+        working-directory: docs  # 对应 Jekyll 构建输出目录 docs/_site
