@@ -1,40 +1,46 @@
 ---
 title: TBAI
 layout: home
-# nav_order: 0
 nav_exclude: true
 ---
 
-
-<!-- 嵌入 Pagefind 搜索组件 -->
+<!-- Pagefind 搜索框 -->
+<style>
+  /* 让搜索框宽一点、好看一点 */
+  #search {
+    margin: 20px 0;
+    max-width: 800px;
+  }
+</style>
 <div id="search"></div>
-<script src="/pagefind/pagefind-ui.js"></script>
+
+<!-- 正确加载 Pagefind（自动识别路径，永不报错） -->
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
+  // 自动获取站点根路径，兼容 GitHub Pages
+  const base = document.querySelector('base')?.href || '/';
+  const script = document.createElement('script');
+  script.src = base + 'pagefind/pagefind-ui.js';
+  script.onload = function() {
     new PagefindUI({
       element: "#search",
-      basePath: "/", // 若站点有 baseurl，需对应调整（如 /just-the-docs-template/）
-      // 中文搜索优化配置
-      searchLabel: "搜索文档...",
-      placeholder: "输入中文关键词搜索",
-      emptySearchResults: "未找到匹配结果",
-      filters: {
-        lang: {
-          label: "语言",
-          options: [
-            { value: "zh", label: "中文" },
-            { value: "en", label: "英文" }
-          ]
-        }
+      baseUrl: base,
+      showImages: false,
+      showEmptyFilters: false,
+      // 中文界面
+      translations: {
+        search: "搜索文档...",
+        placeholder: "输入中文关键词搜索",
+        noResults: "未找到匹配结果",
+        loading: "加载中..."
       }
     });
-  });
+  };
+  document.head.appendChild(script);
 </script>
 
 # TBAI
 {: .no_toc }
 `更新-260421` \| `发布-260420`
-
 
 存放信息。
 
@@ -44,5 +50,6 @@ nav_exclude: true
 
 仓库改名为 jtdsh
 
-
 测试-260428
+测试-260428-2
+
